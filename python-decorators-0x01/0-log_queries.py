@@ -1,7 +1,8 @@
-import sqlite3
 import functools
-from typing import Callable
+import sqlite3
+
 from datetime import datetime
+from typing import Callable
 
 
 def log_queries(func: Callable) -> Callable:
@@ -14,9 +15,8 @@ def log_queries(func: Callable) -> Callable:
     return log_queries_wrapper
 
 
-
 @log_queries
-def fetch_all_users(query: str):
+def fetch_all_users(query: str) -> list:
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
     cursor.execute(query)
@@ -27,4 +27,4 @@ def fetch_all_users(query: str):
 
 
 #### fetch users while logging the query
-users = fetch_all_users(query="SELECT * FROM users")
+users = fetch_all_users(query='SELECT * FROM users')
