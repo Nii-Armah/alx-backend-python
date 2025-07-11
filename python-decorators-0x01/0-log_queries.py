@@ -1,6 +1,8 @@
 import sqlite3
 import functools
 from typing import Callable
+from datetime import datetime
+
 
 def log_queries(func: Callable) -> Callable:
     """Log db query"""
