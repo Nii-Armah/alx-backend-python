@@ -14,11 +14,11 @@ async def async_fetch_older_users():
             return await cursor.fetchall()
 
 
-async def main():
+async def fetch_concurrently():
    result = await asyncio.gather(
        async_fetch_users(),
        async_fetch_older_users()
    )
    print(result)
 
-asyncio.run(main())
+asyncio.run(fetch_concurrently())
