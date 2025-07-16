@@ -136,10 +136,19 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.get_patcher.stop()
 
     def test_public_repos(self) -> None:
+        """
+        Validate public_repos method of client.GithubOrgClient against fixtures
+        provisioned within fixtures.py when no license is provided.
+        """
+
         client = GithubOrgClient('google')
         self.assertEqual(client.public_repos(), self.expected_repos)
 
     def test_public_repos_with_license(self) -> None:
+        """
+        Validate public_repos method of client.GithubOrgClient against fixtures
+        provisioned within fixtures.py when a specific license is provided.
+        """
         client = GithubOrgClient('google')
         self.assertEqual(
             client.public_repos(license='apache-2.0'),
