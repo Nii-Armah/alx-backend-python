@@ -25,6 +25,7 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         Validate return value of org attribute of a GithubOrgClient instance.
         """
+
         return_value = {'login': 'interns'}
         get_json_mock.return_value = return_value
 
@@ -35,6 +36,11 @@ class TestGithubOrgClient(unittest.TestCase):
         )
 
     def test_public_repos_url(self) -> None:
+        """
+        Validate return value of _public_repos_url of a GithubOrgClient
+        instance.
+        """
+
         client = GithubOrgClient('google')
 
         with patch.object(
@@ -53,6 +59,10 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, get_json_mock) -> None:
+        """
+        Validate return value of public_repos attribute of a GithubOrgClient.
+        """
+
         get_json_mock.return_value = [
             {'name': 'google-test'},
             {'name': 'chrome'},
