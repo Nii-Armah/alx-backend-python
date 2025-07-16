@@ -27,23 +27,46 @@ class TestGithubOrgClient(unittest.TestCase):
 
         client = GithubOrgClient(org)
         self.assertEqual(client.org, return_value)
-        get_json_mock.assert_called_once_with(GithubOrgClient.ORG_URL.format(org=org))
+        get_json_mock.assert_called_once_with(
+            GithubOrgClient.ORG_URL.format(org=org)
+        )
 
     def test_public_repos_url(self) -> None:
         client = GithubOrgClient('google')
 
-        with patch.object(GithubOrgClient, 'org', new_callable=PropertyMock) as mock_org:
-            mock_org.return_value = {'repos_url': 'https://api.github.com/orgs/google/repos'}
-            self.assertEqual(client._public_repos_url, 'https://api.github.com/orgs/google/repos')
+        with patch.object(
+            GithubOrgClient,
+            'org',
+            new_callable=PropertyMock
+        ) as mock_org:
+            mock_org.return_value = {
+                'repos_url': 'https://api.github.com/orgs/google/repos'
+            }
+
+            self.assertEqual(
+                client._public_repos_url,
+                'https://api.github.com/orgs/google/repos'
+            )
 
     @patch('client.get_json')
     def test_public_repos(self, get_json_mock) -> None:
-        get_json_mock.return_value = [{'name': 'google-test'}, {'name': 'chrome'}, {'name': 'android'}]
+        get_json_mock.return_value = [
+            {'name': 'google-test'},
+            {'name': 'chrome'},
+            {'name': 'android'}
+        ]
 
-        with patch.object(GithubOrgClient, '_public_repos_url', new_callable=PropertyMock) as public_repos_url_mock:
-            public_repos_url_mock.return_value = 'https://api.github.com/orgs/google/repos'
+        with patch.object(
+                GithubOrgClient,
+                '_public_repos_url',
+                new_callable=PropertyMock
+        ) as public_repos_url_mock:
+            public_repos_url_mock.return_value = 'https://api.github.com/repos'
             client = GithubOrgClient('google')
 
-            self.assertEqual(client.public_repos(), ['google-test', 'chrome', 'android'])
+            self.assertEqual(
+                client.public_repos(),
+                ['google-test', 'chrome', 'android']
+            )
             get_json_mock.assert_called_once()
             public_repos_url_mock.assert_called_once()
