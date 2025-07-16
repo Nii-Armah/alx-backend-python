@@ -4,14 +4,18 @@ Tests for client module.
 
 TestGithubOrgClient:
     Tests for client.GithubOrgClient.
+
+TestIntegrationGithubOrgClient:
+    Integration tests for client.GithubOrgClient.
 """
 
 import unittest
 from unittest.mock import patch, PropertyMock
 
 from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
 
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -99,3 +103,23 @@ class TestGithubOrgClient(unittest.TestCase):
             client.has_license(license_obj, license_key=license_key),
             result
         )
+
+
+@parameterized_class([
+    {
+        'org_payload': TEST_PAYLOAD,
+        'repos_payload': TEST_PAYLOAD[0][1],
+        'expected_repos': TEST_PAYLOAD[0][2],
+        'apache2_repos': TEST_PAYLOAD[0][3]
+    }
+])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """Integration tests for client.GithubOrgClient."""
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.get_patcher = patch('utils.requests.get')
+        cls.get_mock = cls.get_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.get_patcher.stop()
