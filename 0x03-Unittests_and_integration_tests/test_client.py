@@ -22,6 +22,9 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     @patch('client.get_json')
     def test_org(self, org, get_json_mock, ) -> None:
+        """
+        Validate return value of org attribute of a GithubOrgClient instance.
+        """
         return_value = {'login': 'interns'}
         get_json_mock.return_value = return_value
 
