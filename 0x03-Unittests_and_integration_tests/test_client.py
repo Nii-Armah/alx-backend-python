@@ -83,3 +83,19 @@ class TestGithubOrgClient(unittest.TestCase):
             )
             get_json_mock.assert_called_once()
             public_repos_url_mock.assert_called_once()
+
+    @parameterized.expand([
+        ({'license': {'key': 'my_license'}}, 'my_license', True),
+        ({'license': {'key': 'other_license'}}, 'my_license', False)
+    ])
+    def test_has_licence(self, license_obj, license_key, result) -> None:
+        """
+        Validate return value of has_licence attribute of a GithubOrgClient
+        instance.
+        """
+
+        client = GithubOrgClient('google')
+        self.assertEqual(
+            client.has_license(license_obj, license_key=license_key),
+            result
+        )
