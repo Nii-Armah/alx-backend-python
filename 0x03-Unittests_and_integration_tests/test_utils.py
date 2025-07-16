@@ -28,6 +28,10 @@ class TestAccessNestedMap(unittest.TestCase):
         ({'a': {'b': 2}}, ('a', 'b'), 2),
     ])
     def test_access_nested_map(self, nested_map, path, output) -> None:
+        """
+        utils.access_nested_map returns a valid output for a given nested map
+        and path input pair.
+        """
         self.assertEqual(access_nested_map(nested_map, path), output)
 
     @parameterized.expand([
@@ -35,6 +39,11 @@ class TestAccessNestedMap(unittest.TestCase):
         ({'a': 1}, ('a', 'b'))
     ])
     def test_access_nested_map_exception(self, nested_map, path) -> None:
+        """
+        utils.access_nested_map raises an exception when for a given nested
+        map, there is no key-sequence corresponding to path specified in
+        the path input variable.
+        """
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
 
@@ -47,6 +56,10 @@ class TestGetJson(unittest.TestCase):
     ])
     @patch('utils.requests')
     def test_get_json(self, url, payload, mock_requests) -> None:
+        """
+        utils.get_json returns a valid json response corresponding to a valid
+        format for any given valid input.
+        """
         mock_response = Mock()
         mock_response.json.return_value = payload
         mock_requests.get.return_value = mock_response
@@ -59,6 +72,10 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
     """Tests for utils.memoize."""
     def test_memoize(self) -> None:
+        """
+        utils.memoize caches the return value of a_property to avoid
+        unnecessary calls to a_method.
+        """
         class TestClass:
             def a_method(self):
                 return 42
