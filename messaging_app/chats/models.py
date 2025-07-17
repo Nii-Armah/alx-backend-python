@@ -22,3 +22,9 @@ class User(AbstractUser):
         editable=False,
         help_text='Unique identification of user'
     )
+
+    email = models.EmailField(help_text='Email address of the user')
+    password = models.CharField(max_length=128, help_text='Password of user')
+    first_name = models.CharField(max_length=100, help_text='First name of user')
+    last_name = models.CharField(max_length=100, help_text='Last name of user')
+    phone_number = models.CharField(max_length=20, help_text='Phone number of user')
