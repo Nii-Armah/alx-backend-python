@@ -43,3 +43,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+    def validate_email(self, email):
+        """Validate uniqueness of user email address."""
+        if self.Meta.model.objects.filter(email=email).exists():
+            raise serializers.ValidationError(f'User exists with email address: {email}.')
+
+        return email
