@@ -60,3 +60,9 @@ class Message(models.Model):
     message_body = models.TextField(help_text='Body of message')
     created_at = models.DateTimeField(auto_now_add=True)
     sent_at = models.DateTimeField(auto_now=True)
+
+    conversation = models.ForeignKey(
+        Conversation,
+        on_delete=models.CASCADE,
+        related_name='messages'
+    )
