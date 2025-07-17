@@ -2,7 +2,7 @@
 URL configuration for chats application.
 """
 
-from django.urls import path, include
+from django.urls import include, path
 
 from messaging_app.chats.views import MessageViewSet, ConversationViewSet
 
