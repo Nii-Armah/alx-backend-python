@@ -16,7 +16,7 @@ from .models import Conversation, Message, User
 from rest_framework import serializers
 
 
-class ConversationSerializer:
+class ConversationSerializer(serializers.ModelSerializer):
     """Processes and validates Conversation model data."""
     messages = serializers.SerializerMethodField()
 
@@ -36,11 +36,8 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserSerializer:
+class UserSerializer(serializers.ModelSerializer):
     """Processes and validates User model data."""
-
     class Meta:
         model = User
         fields = '__all__'
-
-
