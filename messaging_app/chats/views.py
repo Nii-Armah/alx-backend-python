@@ -11,7 +11,7 @@ MessageViewSet:
 from .models import Conversation, Message
 from .serializers import ConversationSerializer, MessageSerializer
 
-from rest_framework import viewsets
+from rest_framework import viewsets, status, filters
 
 
 class ConversationViewSet(viewsets.ModelViewSet):
