@@ -6,6 +6,9 @@ User:
 
 Conversation:
     A conversation between users.
+
+Message:
+    A user's message.
 """
 
 from django.contrib.auth.models import AbstractUser
@@ -43,3 +46,17 @@ class Conversation(models.Model):
     )
 
     participants = models.ManyToManyField(User, related_name='conversations')
+
+
+class Message(models.Model):
+    """A user's message."""
+    message_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        help_text='Unique identification of message'
+    )
+
+    message_body = models.TextField(help_text='Body of message')
+    created_at = models.DateTimeField(auto_now_add=True)
+    sent_at = models.DateTimeField(auto_now=True)
