@@ -2,7 +2,7 @@
 URL configuration for chats application.
 """
 
-from django.urls import path
+from django.urls import path, include
 
 from messaging_app.chats.views import MessageViewSet, ConversationViewSet
 
@@ -14,5 +14,5 @@ router.register(r'messages', MessageViewSet)
 router.register(r'conversations', ConversationViewSet)
 
 urlpatterns = [
-    path('', router.urls),
+    path('', include(router.urls)),
 ]
