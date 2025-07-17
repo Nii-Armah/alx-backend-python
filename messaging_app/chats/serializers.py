@@ -38,6 +38,8 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     """Processes and validates User model data."""
+    password = serializers.CharField(max_length=128, write_only=True, help_text='Password of user')
+
     class Meta:
         model = User
         fields = '__all__'
