@@ -18,15 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from messaging_app.chats.urls import router
+from messaging_app.chats.urls import nested_router
 
-from rest_framework_nested.routers import NestedDefaultRouter
-
-
-parent_router = NestedDefaultRouter(router, r'api')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(parent_router.urls)),
+    path('api/', include(nested_router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
