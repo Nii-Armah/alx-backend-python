@@ -8,6 +8,8 @@ MessageViewSet:
     Handles management of messages.
 """
 
+from django.db.models import QuerySet
+
 from .models import Conversation, Message
 from .permissions import  IsParticipantOfConversation
 from .serializers import ConversationSerializer, MessageSerializer
@@ -24,5 +26,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
 
 class MessageViewSet(viewsets.ModelViewSet):
     """Handles management of messages."""
-    queryset = Message.objects.select_related('conversation').all()
     serializer_class = MessageSerializer
+
+    def get_queryset(self) -> QuerySet:
+        return Message.objects.select_related('conversation').filter(conversation__participants=self.request.user.pk).all()
