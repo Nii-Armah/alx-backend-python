@@ -11,6 +11,7 @@ MessageViewSet:
 from django.db.models import QuerySet
 
 from .models import Conversation, Message
+from .pagination import CustomPageNumberPagination
 from .permissions import  IsParticipantOfConversation
 from .serializers import ConversationSerializer, MessageSerializer
 
@@ -39,6 +40,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     """Handles management of messages."""
     serializer_class = MessageSerializer
+    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self) -> QuerySet:
         return Message.objects.filter(conversation__participants=self.request.user.pk).select_related('conversation')
