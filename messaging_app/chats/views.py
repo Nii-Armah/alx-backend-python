@@ -8,8 +8,9 @@ MessageViewSet:
     Handles management of messages.
 """
 
-from .models import Conversation, Message
-from .serializers import ConversationSerializer, MessageSerializer
+from models import Conversation, Message
+from permissions import  IsAParticipant
+from serializers import ConversationSerializer, MessageSerializer
 
 from rest_framework import viewsets, status, filters
 
@@ -18,6 +19,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
     """Handles management of conversations."""
     queryset = Conversation.objects.select_related('participants', 'messages').all()
     serializer_class = ConversationSerializer
+    permission_classes = [IsAParticipant, ]
 
 
 class MessageViewSet(viewsets.ModelViewSet):
