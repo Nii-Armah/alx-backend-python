@@ -9,7 +9,7 @@ MessageViewSet:
 """
 
 from .models import Conversation, Message
-from .permissions import  IsAParticipant
+from .permissions import  IsParticipantOfConversation
 from .serializers import ConversationSerializer, MessageSerializer
 
 from rest_framework import viewsets, status, filters
@@ -19,7 +19,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
     """Handles management of conversations."""
     queryset = Conversation.objects.select_related('participants', 'messages').all()
     serializer_class = ConversationSerializer
-    permission_classes = [IsAParticipant, ]
+    permission_classes = [IsParticipantOfConversation, ]
 
 
 class MessageViewSet(viewsets.ModelViewSet):
