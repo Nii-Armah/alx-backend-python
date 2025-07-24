@@ -29,4 +29,4 @@ class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
 
     def get_queryset(self) -> QuerySet:
-        return Message.objects.select_related('conversation').filter(conversation__participants=self.request.user.pk).all()
+        return Message.objects.filter(conversation__participants=self.request.user.pk).select_related('conversation')
