@@ -23,6 +23,14 @@ class ConversationViewSet(viewsets.ModelViewSet):
     serializer_class = ConversationSerializer
     permission_classes = [permissions.IsAuthenticated, IsParticipantOfConversation, ]
 
+    def get_object(self):
+        conversation = super().get_object()
+
+        if self.request.user not in conversation.participants.all():
+            raise status.HTTP_403_FORBIDDEN
+
+        return conversation
+
     def get_queryset(self):
         user_conversations = self.request.user.conversations.all()
         return Conversation.objects.select_related('participants', 'messages').filter(conversation_id_in=user_conversations).all()
