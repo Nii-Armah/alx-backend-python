@@ -141,4 +141,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         "chats.auth.CustomAuthentication",
     ],
+
+    'PAGE_SIZE': 20,
+    'DEFAULT_PAGINATION_CLASS': 'chats.pagination.PageNumberPagination',
 }
