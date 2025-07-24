@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # Third-party packages
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -142,6 +143,7 @@ REST_FRAMEWORK = {
         "chats.auth.CustomAuthentication",
     ],
 
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'PAGE_SIZE': 20,
     'DEFAULT_PAGINATION_CLASS': 'chats.pagination.PageNumberPagination',
 }
