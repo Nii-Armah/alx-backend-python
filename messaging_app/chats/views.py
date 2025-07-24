@@ -8,9 +8,9 @@ MessageViewSet:
     Handles management of messages.
 """
 
-from models import Conversation, Message
-from permissions import  IsAParticipant
-from serializers import ConversationSerializer, MessageSerializer
+from .models import Conversation, Message
+from .permissions import  IsAParticipant
+from .serializers import ConversationSerializer, MessageSerializer
 
 from rest_framework import viewsets, status, filters
 
