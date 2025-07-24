@@ -14,4 +14,7 @@ class IsParticipantOfConversation(permissions.BasePermission):
         return request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
-        return obj.participants.filter(user_id=request.user.id).exists()
+        if request.method in ['PUT', 'PATCH', 'DELETE']:
+            return obj.participants.filter(user_id=request.user.id).exists()
+
+        return True
