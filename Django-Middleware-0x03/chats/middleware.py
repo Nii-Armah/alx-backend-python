@@ -9,6 +9,9 @@ RestrictAccessByTimeMiddleware:
 
 OffensiveLanguageMiddleware:
     Restricts IPs to a maximum of 5 POST requests per minute.
+
+RolePermissionMiddleware:
+    Restricts access to the endpoint to administrative users.
 """
 
 from django.http import HttpResponse
@@ -70,5 +73,16 @@ class OffensiveLanguageMiddleware:
                 return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 
             TIMESTAMPS_PER_IP[ip_address].append(now)
+
+        return self.get_response(request)
+
+
+class RolepermissionMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if not request.user.is_staff:
+            return HttpResponse(status=status.HTTP_403_FORBIDDEN)
 
         return self.get_response(request)
