@@ -1,8 +1,81 @@
 {
-  "info": {
+	"info": {
 		"_postman_id": "edc3df8c-3c3a-4eea-8f20-087ddde747f4",
-		"name": "ALX Messaging Application",
+		"name": "Notifications",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30195030"
-	}
+	},
+	"item": [
+		{
+			"name": "Email Notification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"recipient\": \"stanleyniiarmah7@gmail.com\",\r\n    \"subject\": \"Heya\",\r\n    \"message\": \"Heya\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://mobile.featherycare.com/api/notifications/email/",
+					"protocol": "https",
+					"host": [
+						"mobile",
+						"featherycare",
+						"com"
+					],
+					"path": [
+						"api",
+						"notifications",
+						"email",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SMS Notification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"message\": \"Heya\",\r\n    \"contact_number\": \"+233552881453\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://mobile.featherycare.com/api/notifications/sms/",
+					"protocol": "https",
+					"host": [
+						"mobile",
+						"featherycare",
+						"com"
+					],
+					"path": [
+						"api",
+						"notifications",
+						"sms",
+						""
+					],
+					"query": [
+						{
+							"key": "contact_number",
+							"value": "0552881453",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }
